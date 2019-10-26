@@ -306,13 +306,37 @@ defmodule Solid.Integration.TagsTest do
     end
   end
 
+  describe "comment" do
+    test "comment" do
+      text = """
+      {% comment %}
+
+      an object just text
+
+      another random text 42
+
+      {% endcomment %}
+      Outside of raw
+
+      """
+
+      assert render(text, %{}) == """
+
+             Outside of raw
+
+             """
+    end
+  end
+
   describe "raw" do
     test "raw" do
       text = """
       {% raw %}
-      {{ an object }} just text
+
+      {{ object }} just text
 
       another random text 42
+
       {% endraw %}
       Outside of raw
 
@@ -320,9 +344,11 @@ defmodule Solid.Integration.TagsTest do
 
       assert render(text, %{}) == """
 
-             {{ an object }} just text
+
+             an object just text
 
              another random text 42
+
 
              Outside of raw
 
