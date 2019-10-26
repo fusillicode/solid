@@ -305,4 +305,28 @@ defmodule Solid.Integration.TagsTest do
              """
     end
   end
+
+  describe "raw" do
+    test "raw" do
+      text = """
+      {% raw %}
+      {{ an object }} just text
+
+      another random text 42
+      {% endraw %}
+      Outside of raw
+
+      """
+
+      assert render(text, %{}) == """
+
+             {{ an object }} just text
+
+             another random text 42
+
+             Outside of raw
+
+             """
+    end
+  end
 end
